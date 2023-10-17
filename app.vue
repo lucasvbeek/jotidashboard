@@ -1,11 +1,23 @@
 <script setup>
-let { data: areas, pending: areasPending, _, refresh } = await useFetch("https://jotihunt.nl/api/2.0/areas");
-let areasLastCheck = useDateFormat(Date.now());
+import areasSound from './assets/bell-ring-01.mp3';
+let { data: areas, pending: areasPending, _, refresh } = await useFetch(useRuntimeConfig().public.areasUrl);
+let areasLastCheck = Date.now();
+
+let playAreasSound = async function() {
+  let audio = new Audio(areasSound);
+  audio.play();
+}
+
 
 let refreshAreas = async function() {
-  areasLastCheck = useDateFormat(Date.now());
+  let prevCheckTime = areasLastCheck;
+  areasLastCheck = Date.now();
 
   await refresh();
+
+  if (areas.value.data.filter(x => Date.parse(x.updated_at) > prevCheckTime).length > 0) {
+    playAreasSound();
+  }
 }
 useIntervalFn(refreshAreas, 10000);
 
@@ -17,8 +29,12 @@ useIntervalFn(refreshAreas, 10000);
         <h1 class="text-4xl text-gray-50 font-bold">
           Gebied status
         </h1>
-        <p v-if="!areasPending" class="text-gray-200 text-lg">Laatste check: {{ areasLastCheck }}</p>
+        <div class="flex flex-row gap-4 items-baseline">
+          <button class="bg-neutral-800 text-gray-400 p-2 rounded-md" @click="playAreasSound">Test sound</button>
+          <p v-if="!areasPending" class="text-gray-200 text-lg">Laatste check: {{ useDateFormat(areasLastCheck).value }}</p>
         <p v-if="areasPending" class="text-gray-200 text-lg">Nu aan het checken...</p>
+        </div>
+
       </div>
       <div class="grid grid-cols-6 gap-16 my-8">
         <!-- bg-red-400/10 bg-orange-400/10 bg-green-400/10 -->
