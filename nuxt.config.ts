@@ -8,9 +8,5 @@ export default defineNuxtConfig({
       articlesUrl: 'https://jotihunt.nl/api/2.0/articles'
     }
   },
-  nitro: {
-    prerender: {
-      failOnError: false
-    }
-  }
+  ssr: false
 })
