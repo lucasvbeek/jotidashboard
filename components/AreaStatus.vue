@@ -5,7 +5,7 @@ let {
   pending: areasPending,
   _,
   refresh,
-} = await useFetch(useRuntimeConfig().public.areasUrl);
+} = await useFetch(useRuntimeConfig().public.areasUrl, {server: false});
 let areasLastCheck = Date.now();
 
 let playAreasSound = async function () {

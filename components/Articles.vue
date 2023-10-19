@@ -5,7 +5,7 @@ let {
   pending: pending,
   _,
   refresh,
-} = await useFetch(useRuntimeConfig().public.articlesUrl);
+} = await useFetch(useRuntimeConfig().public.articlesUrl, {server: false});
 let lastCheck = Date.now();
 
 let playSound = async function () {
