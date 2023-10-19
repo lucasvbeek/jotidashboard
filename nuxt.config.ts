@@ -7,5 +7,10 @@ export default defineNuxtConfig({
       areasUrl: 'https://jotihunt.nl/api/2.0/areas',
       articlesUrl: 'https://jotihunt.nl/api/2.0/articles'
     }
+  },
+  nitro: {
+    prerender: {
+      failOnError: false
+    }
   }
 })
