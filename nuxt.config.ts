@@ -8,5 +8,8 @@ export default defineNuxtConfig({
       articlesUrl: 'https://jotihunt.nl/api/2.0/articles'
     }
   },
-  ssr: false
+  ssr: false,
+  experimental: {
+    payloadExtraction: true
+  }
 })
