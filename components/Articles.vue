@@ -26,7 +26,7 @@ let refreshArticles = async function () {
     playSound();
   }
 };
-useIntervalFn(refreshArticles, 10000);
+useIntervalFn(refreshArticles, 5000);
 </script>
 <template>
   <section class="w-100 my-16">
